@@ -3,6 +3,29 @@ class ControllerCommonHeader extends Controller {
 	protected function index() {
 		$this->data['title'] = $this->document->getTitle();
 		
+		 // start body_class code
+   
+    $current_path = $this->request->get;
+    if (empty($current_path) || $current_path['route'] == 'common/home') {
+      $body_class = 'home';
+    }
+    else {
+      $body_class = explode('/', str_replace('product/', '', $current_path['route']));
+      unset($current_path['route']);
+      if (isset($current_path['_route_'])) {
+        $body_class = array_merge($body_class, explode('/', str_replace('-', '_', $current_path['_route_'])));
+        unset($current_path['_route_']);
+      }
+      foreach ($current_path as $key => $value) {
+        $body_class[] = $key . "_" . $value;
+      }
+      $body_class = 'page_' . implode(" page_", array_unique($body_class));
+    }
+    $body_class .= ' lang_' . $this->language->get('code');
+    $this->data['body_class'] = $body_class;
+      
+    // end body_class code
+		
 		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
 			$server = $this->config->get('config_ssl');
 		} else {
@@ -109,21 +132,45 @@ class ControllerCommonHeader extends Controller {
 				// Level 2
 				$children_data = array();
 				
+				
 				$children = $this->model_catalog_category->getCategories($category['category_id']);
+						
+				///////  Megnor extra code for 3 level categories start  ///////
 				
 				foreach ($children as $child) {
 					$data = array(
 						'filter_category_id'  => $child['category_id'],
 						'filter_sub_category' => true
+					);					
+					// Level 2
+					$children_level2 = $this->model_catalog_category->getCategories($child['category_id']);
+					$children_data_level2 = array();
+					foreach ($children_level2 as $child_level2) {
+							$data_level2 = array(
+									'filter_category_id'  => $child_level2['category_id'],
+									'filter_sub_category' => true
+							);
+							$product_total_level2 = '';
+							if ($this->config->get('config_product_count')) {
+									$product_total_level2 = ' (' . $this->model_catalog_product->getTotalProducts($data_level2) . ')';
+							}
+
+							$children_data_level2[] = array(
+									'name'  =>  $child_level2['name'],
+									'href'  => $this->url->link('product/category', 'path=' . $child['category_id'] . '_' . $child_level2['category_id']),
+									'id' => $category['category_id']. '_' . $child['category_id']. '_' . $child_level2['category_id']
+							);
+					}
+					$children_data[] = array(
+							'name'  => $child['name'],
+							'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id']),
+							'id' => $category['category_id']. '_' . $child['category_id'],
+							'children_level2' => $children_data_level2,
 					);
 					
-					$product_total = $this->model_catalog_product->getTotalProducts($data);
-									
-					$children_data[] = array(
-						'name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $product_total . ')' : ''),
-						'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
-					);						
 				}
+				
+				///////  Megnor extra code for 3 level categories end  ///////
 				
 				// Level 1
 				$this->data['categories'][] = array(
@@ -138,7 +185,8 @@ class ControllerCommonHeader extends Controller {
 		$this->children = array(
 			'module/language',
 			'module/currency',
-			'module/cart'
+			'module/cart',
+			'common/content_footer',
 		);
 				
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/common/header.tpl')) {
