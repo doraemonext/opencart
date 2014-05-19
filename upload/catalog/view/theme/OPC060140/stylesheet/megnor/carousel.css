@@ -1,0 +1,153 @@
+
+/* display none until init */
+.product-carousel{
+	display: none;
+	opacity:1!important;
+	position: relative;
+	width: 100%;
+	-ms-touch-action: pan-y;
+}
+#column-left .product-carousel, #column-right .product-carousel { display:block;}
+#column-left .customNavigation, #column-right .customNavigation { display:none;}
+
+#column-left .banners-slider-carousel .customNavigation,
+#column-right .banners-slider-carousel .customNavigation{ display:block;}
+
+.product-carousel .slider-wrapper{
+	display: none;
+	position: relative;
+	-webkit-transform: translate3d(0px, 0px, 0px);
+	-webkit-perspective: 1000;
+}
+.product-carousel .slider-wrapper-outer{
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.product-carousel .slider-wrapper-outer.autoHeight{
+	-webkit-transition: height 500ms ease-in-out;
+	-moz-transition: height 500ms ease-in-out;
+	-ms-transition: height 500ms ease-in-out;
+	-o-transition: height 500ms ease-in-out;
+	transition: height 500ms ease-in-out;
+}
+	
+.product-carousel .slider-item{
+	float: left;
+}
+.slider-controls .slider-page,
+.slider-controls .slider-buttons div{
+	cursor: pointer;
+}
+.slider-controls {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* mouse grab icon */
+ 
+.grabbing { 
+    cursor:url("../../image/megnor/grabbing.png") 8 8, move;
+}
+
+
+/* fix */
+.product-carousel  .slider-wrapper,
+.product-carousel  .slider-item{
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility:    hidden;
+	-ms-backface-visibility:     hidden;
+}
+.customNavigation    { text-align: center; position:relative;width:100%}
+.customNavigation a{
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color:transparent;
+	display: block;
+    float: right;
+    height: 22px;
+    position: absolute;
+    top: -30px;
+    width: 22px;
+}
+
+.banners-slider-carousel .customNavigation a{width:22px;height:32px;transition:all 0.3s ease-out 0s;}
+
+.customNavigation a.prev {
+  	background: url("../../image/megnor/sprite.png") no-repeat scroll -12px -30px transparent;
+    right:26px;
+}
+.customNavigation a.prev:hover 	{ background-position:-12px 0px; text-decoration:none;}
+.customNavigation a.next {
+	background: url("../../image/megnor/sprite.png") no-repeat scroll -38px -30px transparent;
+    right:0;	
+}
+.customNavigation a.next:hover 	{ background-position:-38px 0px; text-decoration:none;}
+
+.banners-slider-carousel .product-carousel{  width:94%; padding-left:0px; padding-right:0px;margin:10px auto; }
+.banners-slider-carousel .customNavigation a.prev {
+  	background:url("../../image/megnor/sprite.png") no-repeat scroll -97px -386px transparent;
+    left:0px;
+	top:14px;
+	z-index:999;
+}
+.banners-slider-carousel .customNavigation a.prev:hover 	{ background-position:-97px -419px; text-decoration:none; z-index:999;}
+.banners-slider-carousel .customNavigation a.next {
+	background:url("../../image/megnor/sprite.png") no-repeat scroll -97px -457px transparent;
+    right:0px;
+	top:14px;
+	z-index:999;
+}
+.banners-slider-carousel .customNavigation a.next:hover 	{ background-position:-97px -490px; text-decoration:none; z-index:999;}
+
+
+.product-info .product-image .customNavigation    { text-align: center; position:absolute; width:100%; z-index:9;left:0;}
+.product-info .product-image .customNavigation a{
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	display: block;
+    float: right;
+    height: 20px;
+    position: absolute;
+    top: -34px;
+    width: 16px;
+}
+
+.product-info .product-image .customNavigation a.prev {
+  	background: url("../../image/megnor/sprite.png") no-repeat scroll -11px -59px transparent;
+    left:0;
+	top:38px;
+}
+.product-info .product-image .customNavigation a.prev:hover 	{ background-position: -11px -91px; text-decoration:none;}
+.product-info .product-image .customNavigation a.next {
+	background: url("../../image/megnor/sprite.png") no-repeat scroll -43px -59px transparent;
+	right:0;
+	top:38px;
+}
+.product-info .product-image .customNavigation a.next:hover 	{ background-position: -43px -91px; text-decoration:none;}
+
+/*.related-products .customNavigation{ width:97%;}
+.related-products .customNavigation a.prev {
+  	background: url("../../image/megnor/sprite.png") no-repeat scroll -204px 2px transparent;
+    right:25px;
+	top:-20px;
+}
+.related-products .customNavigation a.prev:hover 	{ background-position: -204px -27px; text-decoration:none;}
+.related-products .customNavigation a.next {
+	background: url("../../image/megnor/sprite.png") no-repeat scroll -234px 2px transparent;
+	right:0px;
+	top:-20px;
+}
+.related-products .customNavigation a.next:hover 	{ background-position: -234px -27px; text-decoration:none;}
+*/
